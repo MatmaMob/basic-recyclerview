@@ -3,27 +3,27 @@ package com.example.staterecyclerview.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.staterecyclerview.data.Product
 import com.example.staterecyclerview.R
+import com.example.staterecyclerview.data.Product
+import kotlinx.android.synthetic.main.row_product.view.*
 
 class ProductsAdapter(
     private var products: List<Product>,
-    private var onProductClickListener: OnProductClickListener
-) :
-    RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
+    private val onProductClick: (Product) -> Unit
+
+) : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
 
     inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val nameView: TextView = view.findViewById(R.id.name)
-        private val priceView: TextView = view.findViewById(R.id.price)
 
         fun bindData(product: Product) {
-            nameView.text = product.name
-            priceView.text = product.price.toString()
+            with(itemView) {
+                nameView.text = product.name
+                priceView.text = product.price.toString()
 
-            itemView.setOnClickListener {
-                onProductClickListener.onProductClick(product)
+                setOnClickListener {
+                    onProductClick(product)
+                }
             }
         }
     }
@@ -43,8 +43,4 @@ class ProductsAdapter(
     }
 
     override fun getItemCount(): Int = products.size
-
-    interface OnProductClickListener {
-        fun onProductClick(product: Product)
-    }
 }

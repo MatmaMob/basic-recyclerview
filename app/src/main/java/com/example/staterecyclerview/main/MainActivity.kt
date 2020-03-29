@@ -2,32 +2,26 @@ package com.example.staterecyclerview.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.GridLayoutManager
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.staterecyclerview.data.Product
 import com.example.staterecyclerview.adapter.ProductsAdapter
 import com.example.staterecyclerview.R
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ProductsAdapter.OnProductClickListener {
-
-    private lateinit var productsRecyclerView: RecyclerView
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        productsRecyclerView = findViewById(R.id.products_recycler_view)
-
         setProductsRecyclerView(createProducts())
     }
 
     private fun setProductsRecyclerView(products: List<Product>) {
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-        val adapter =
-            ProductsAdapter(products, this)
-        productsRecyclerView.layoutManager = layoutManager
-        productsRecyclerView.adapter = adapter
+        productsRecyclerView.layoutManager = LinearLayoutManager(this)
+        productsRecyclerView.adapter = ProductsAdapter(products) {
+            Toast.makeText(this, "Product ${it.name}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun createProducts(): List<Product> {
@@ -36,9 +30,5 @@ class MainActivity : AppCompatActivity(), ProductsAdapter.OnProductClickListener
             products.add(Product("$i: milk", 4.0))
         }
         return products
-    }
-
-    override fun onProductClick(product: Product) {
-        // do whatever you want here
     }
 }
