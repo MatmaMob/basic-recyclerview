@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.staterecyclerview.data.Product
 import com.example.staterecyclerview.R
 
-class ProductsAdapter(private var products: List<Product>) :
+class ProductsAdapter(
+    private var products: List<Product>,
+    private var onProductClickListener: OnProductClickListener
+) :
     RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
 
     inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -18,8 +21,14 @@ class ProductsAdapter(private var products: List<Product>) :
         fun bindData(product: Product) {
             nameView.text = product.name
             priceView.text = product.price.toString()
+
+            itemView.setOnClickListener {
+                onProductClickListener.onProductClick(product)
+            }
         }
     }
+
+    override fun getItemViewType(position: Int): Int = position
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : ProductViewHolder = ProductViewHolder(
@@ -34,4 +43,8 @@ class ProductsAdapter(private var products: List<Product>) :
     }
 
     override fun getItemCount(): Int = products.size
+
+    interface OnProductClickListener {
+        fun onProductClick(product: Product)
+    }
 }
