@@ -1,9 +1,10 @@
-package com.example.staterecyclerview.data
+package com.example.staterecyclerview.data.db
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.staterecyclerview.data.Item
 
 @Dao
 interface ItemDAO {
