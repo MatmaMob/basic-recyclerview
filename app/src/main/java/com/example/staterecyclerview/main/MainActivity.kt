@@ -2,35 +2,30 @@ package com.example.staterecyclerview.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.staterecyclerview.data.Product
 import com.example.staterecyclerview.adapter.ProductsAdapter
 import com.example.staterecyclerview.R
+import com.example.staterecyclerview.utils.DateUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Todo app
+     * Reminds you to build list every day
+     * Works only for current day
+     * Productivity reason
+     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setProductsRecyclerView(createProducts())
+
+        Log.d("tomek", "Today is: " + DateUtil.getCurrentDay())
+        Log.d("tomek", "Today is: " + DateUtil.getDate())
     }
 
-    private fun setProductsRecyclerView(products: List<Product>) {
-        productsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = ProductsAdapter(products) {
-                Toast.makeText(this@MainActivity, "Product ${it.name}", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun createProducts(): List<Product> {
-        val products = ArrayList<Product>()
-        for (i in 1..20) {
-            products.add(Product("$i: milk", 4.0))
-        }
-        return products
-    }
 }
