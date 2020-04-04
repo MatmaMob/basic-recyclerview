@@ -3,4 +3,13 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="color_background">#fe3455</color>
+    <color name="color_card_background">#ffffff</color>
+
+    <color name="color_day_title">#f57389</color>
+    <color name="color_date_title">#fec7d5</color>
+    <color name="color_item_title">#9fa3ad</color>
+    <color name="color_done_item_title">#e3e4e7</color>
+    <color name="color_done_item_title_transparent">#4De3e4e7</color>
 </resources>

@@ -7,8 +7,10 @@ import com.example.staterecyclerview.Constants
 
 @Entity
 data class Item(
-    @PrimaryKey val uid: Int,
     @ColumnInfo(name = Constants.COLUMN_TITLE) val title: String,
     @ColumnInfo(name = Constants.COLUMN_DESCRIPTION) val description: String,
     @ColumnInfo(name = Constants.COLUMN_PRIORITY) val priority: String
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var uid: Int = 0
+}

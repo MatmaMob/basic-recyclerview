@@ -5,25 +5,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.staterecyclerview.R
-import com.example.staterecyclerview.data.Product
-import kotlinx.android.synthetic.main.row_product.view.*
+import com.example.staterecyclerview.data.Item
+import kotlinx.android.synthetic.main.row_item.view.*
 
-class ProductsAdapter(
-    private var products: List<Product>,
-    private val onProductClick: (Product) -> Unit
+class ItemsAdapter(
+    private var items: List<Item>,
+    private val onProductClick: (Item) -> Unit
 
-) : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
+) : RecyclerView.Adapter<ItemsAdapter.ProductViewHolder>() {
 
     inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindData(product: Product) {
+        fun bindData(item: Item) {
             with(itemView) {
-                nameView.text = product.name
-                priceView.text = product.price.toString()
-
-                setOnClickListener {
-                    onProductClick(product)
-                }
+                titleView.text = item.title
             }
         }
     }
@@ -33,14 +28,14 @@ class ProductsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : ProductViewHolder = ProductViewHolder(
         LayoutInflater.from(parent.context).inflate(
-            R.layout.row_product, parent, false
+            R.layout.row_item, parent, false
         )
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = products[position]
-        holder.bindData(product)
+        val item = items[position]
+        holder.bindData(item)
     }
 
-    override fun getItemCount(): Int = products.size
+    override fun getItemCount(): Int = items.size
 }
