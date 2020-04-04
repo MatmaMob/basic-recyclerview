@@ -18,9 +18,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setProductsRecyclerView(products: List<Product>) {
-        productsRecyclerView.layoutManager = LinearLayoutManager(this)
-        productsRecyclerView.adapter = ProductsAdapter(products) {
-            Toast.makeText(this, "Product ${it.name}", Toast.LENGTH_SHORT).show()
+        productsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = ProductsAdapter(products) {
+                Toast.makeText(this@MainActivity, "Product ${it.name}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
