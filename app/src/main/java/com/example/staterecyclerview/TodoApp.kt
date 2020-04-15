@@ -1,7 +1,8 @@
 package com.example.staterecyclerview
 
 import android.app.Application
-import com.example.staterecyclerview.main.MainViewModel
+import com.example.staterecyclerview.features.create.TaskCreateViewModel
+import com.example.staterecyclerview.features.main.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -12,6 +13,7 @@ class TodoApp : Application() {
 
     val applicationModule = module {
         viewModel { MainViewModel(applicationContext) }
+        viewModel { TaskCreateViewModel(applicationContext) }
     }
 
     override fun onCreate() {

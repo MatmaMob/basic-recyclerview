@@ -1,6 +1,5 @@
-package com.example.staterecyclerview.main
+package com.example.staterecyclerview.features.main
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

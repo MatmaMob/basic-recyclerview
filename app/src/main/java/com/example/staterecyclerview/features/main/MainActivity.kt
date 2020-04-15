@@ -1,5 +1,6 @@
-package com.example.staterecyclerview.main
+package com.example.staterecyclerview.features.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.staterecyclerview.R
 import com.example.staterecyclerview.adapter.ItemsAdapter
 import com.example.staterecyclerview.data.Item
+import com.example.staterecyclerview.features.create.TaskCreateActivity
 import com.example.staterecyclerview.utils.DateUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,10 +30,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setDateLayout()
+        setViewModel()
+        setUI()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setViewModel()
+    }
+
+    fun setViewModel() {
         mainViewModel.getTasks().observe(this, Observer {
             setItemsRecyclerView(it)
         })
+    }
+
+    fun setUI() {
+        createTaskBtn.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    TaskCreateActivity::class.java
+                )
+            )
+        }
+        setDateLayout()
     }
 
     fun setDateLayout() {
