@@ -1,7 +1,9 @@
 package com.example.staterecyclerview.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.staterecyclerview.R
@@ -9,8 +11,11 @@ import com.example.staterecyclerview.adapter.ItemsAdapter
 import com.example.staterecyclerview.data.Item
 import com.example.staterecyclerview.utils.DateUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
+
+    private val mainViewModel: MainViewModel by viewModel()
 
     /**
      * Todo app
@@ -22,8 +27,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         setDateLayout()
-        setItemsRecyclerView()
+        mainViewModel.getTasks().observe(this, Observer {
+            setItemsRecyclerView(it)
+        })
     }
 
     fun setDateLayout() {
@@ -37,20 +45,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setItemsRecyclerView() {
-        val list = ArrayList<Item>()
-        list.add(Item("Buy Marmelad Candies", "", ""))
-        list.add(Item("Meet With David", "", ""))
-        list.add(Item("Finish The Landing Page", "", ""))
-        list.add(Item("Video Conference", "", ""))
-        list.add(Item("Design New Logo", "", ""))
-
-        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+    fun setItemsRecyclerView(list: List<Item>) {
+        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         divider.setDrawable(getDrawable(R.drawable.divider)!!)
 
         val adapter = ItemsAdapter(list) {}
         itemsRecyclerView.layoutManager = LinearLayoutManager(this)
         itemsRecyclerView.addItemDecoration(divider)
         itemsRecyclerView.adapter = adapter
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mainViewModel.cancelJobs()
     }
 }
