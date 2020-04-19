@@ -11,5 +11,5 @@
     <color name="color_date_title">#fec7d5</color>
     <color name="color_item_title">#9fa3ad</color>
     <color name="color_done_item_title">#e3e4e7</color>
-    <color name="color_done_item_title_transparent">#4De3e4e7</color>
+    <color name="color_done_item_title_transparent">#e3e4e7</color>
 </resources>

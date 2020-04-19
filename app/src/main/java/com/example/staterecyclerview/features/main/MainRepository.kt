@@ -29,6 +29,11 @@ class MainRepository(private val context: Context) {
         }
     }
 
+    fun updateTask(item: Item): Boolean =
+        CoroutineScope(IO).launch {
+            AppDatabase.getInstance(context).itemDAO().updateItem(item)
+        }.isCompleted
+
     fun cancelJobs() {
         job.cancel()
     }

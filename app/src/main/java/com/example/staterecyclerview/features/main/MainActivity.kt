@@ -24,12 +24,12 @@ class MainActivity : AppCompatActivity() {
      * Reminds you to build list every day
      * Works only for current day
      * Productivity reason
+     * after click assign time to list element when task was finished
      */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         setViewModel()
         setUI()
     }
@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
         setViewModel()
     }
 
-    fun setViewModel() {
+    private fun setViewModel() {
         mainViewModel.getTasks().observe(this, Observer {
             setItemsRecyclerView(it)
         })
     }
 
-    fun setUI() {
+    private fun setUI() {
         createTaskBtn.setOnClickListener {
             startActivity(
                 Intent(
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         setDateLayout()
     }
 
-    fun setDateLayout() {
+    private fun setDateLayout() {
 
         DateUtil.getCurrentDay().let {
             dayView.text = it
@@ -68,13 +68,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setItemsRecyclerView(list: List<Item>) {
-        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        divider.setDrawable(getDrawable(R.drawable.divider)!!)
+    private fun setItemsRecyclerView(list: List<Item>) {
+        val adapter = ItemsAdapter(list, this) {
+            it.isDone = true
+            mainViewModel.markTaskAsDone(it) {
 
-        val adapter = ItemsAdapter(list) {}
+            }
+        }
         itemsRecyclerView.layoutManager = LinearLayoutManager(this)
-        itemsRecyclerView.addItemDecoration(divider)
         itemsRecyclerView.adapter = adapter
     }
 

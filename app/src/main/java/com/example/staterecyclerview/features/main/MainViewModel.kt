@@ -11,6 +11,10 @@ class MainViewModel(context: Context) : ViewModel() {
 
     fun getTasks(): LiveData<List<Item>> = repository.getTasks()
 
+    fun markTaskAsDone(item: Item, onCompleted: (Boolean) -> Unit) {
+        if (repository.updateTask(item)) onCompleted(true)
+    }
+
     fun cancelJobs() {
         repository.cancelJobs()
     }

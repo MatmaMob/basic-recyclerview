@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.staterecyclerview.Constants
 import com.example.staterecyclerview.data.Item
 
-@Database(entities = arrayOf(Item::class), version = 1)
+@Database(entities = arrayOf(Item::class), version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun itemDAO(): ItemDAO
 
