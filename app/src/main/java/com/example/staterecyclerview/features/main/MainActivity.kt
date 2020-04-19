@@ -18,6 +18,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
+    private lateinit var doneAdapter: ItemsAdapter
+    private lateinit var adapter: ItemsAdapter
+
 
     /**
      * Todo app
@@ -42,6 +45,10 @@ class MainActivity : AppCompatActivity() {
     private fun setViewModel() {
         mainViewModel.getTasks().observe(this, Observer {
             setItemsRecyclerView(it)
+        })
+
+        mainViewModel.getDoneTasks().observe(this, Observer {
+            setDoneList(it)
         })
     }
 
@@ -68,11 +75,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setDoneList(doneList: List<Item>) {
+        doneAdapter = ItemsAdapter(doneList, this) {
+
+        }
+
+        doneItemsRecyclerView.layoutManager = LinearLayoutManager(this)
+        doneItemsRecyclerView.adapter = doneAdapter
+    }
+
     private fun setItemsRecyclerView(list: List<Item>) {
-        val adapter = ItemsAdapter(list, this) {
+        adapter = ItemsAdapter(list, this) {
             it.isDone = true
             mainViewModel.markTaskAsDone(it) {
-
             }
         }
         itemsRecyclerView.layoutManager = LinearLayoutManager(this)
