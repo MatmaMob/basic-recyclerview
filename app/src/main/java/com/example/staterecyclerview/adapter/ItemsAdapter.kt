@@ -21,12 +21,13 @@ class ItemsAdapter(
 
         fun bindData(item: Item, position: Int) {
             with(itemView) {
-                if (item.isDone) setDoneUI(titleView)
-
                 titleView.text = item.title
-                setOnClickListener {
-                    onProductClick(item)
-                    notifyItemChanged(position)
+                if (item.isDone) setDoneUI(titleView)
+                else {
+                    setOnClickListener {
+                        onProductClick(item)
+                        notifyItemChanged(position)
+                    }
                 }
             }
         }

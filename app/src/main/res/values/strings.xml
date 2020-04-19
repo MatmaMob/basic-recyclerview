@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BasicRecyclerView</string>
+
+    <string name="done_task_title">Tasks that are done today</string>
 </resources>

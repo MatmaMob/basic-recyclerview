@@ -33,7 +33,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:weightSum="1"
+        android:weightSum="1.7"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -44,13 +44,27 @@
             android:id="@+id/itemsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.8" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/doneItemsRecyclerView"
+        <TextView
+            android:id="@+id/doneTasksView"
+            android:text="@string/done_task_title"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.1"
+            android:gravity="center_vertical" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/doneItemsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+        </FrameLayout>
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageButton
